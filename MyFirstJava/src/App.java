@@ -4787,7 +4787,7 @@
 //Copy code
 //this.buttonPlus.addActionListener((ActionEvent event) -> {
 //MathFrame.this.onPlus();
-//});
+//});q
 //Dieser Ausdruck ist gleichwertig zu der anonymen Klasse oben, aber kürzer. Es folgt eine weitere Vereinfachung:
 //
 
@@ -5889,12 +5889,32 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 ////1. Grundlegendes Enum-Konzept:
-//
-////Ein Enum in Java definiert eine Gruppe von Konstanten. Früher wurden Enums häufig als einfache Konstanten verwendet, z.B.:
-//
+//Enums (kurz für enumeration) repräsentieren eine Sammlung von konstanten Werten, die in Java als spezielle Klassen behandelt werden.
+
+//Enums sind eine Alternative zur Verwendung von final static Konstanten und bieten zusätzliche Funktionalitäten wie Typensicherheit und bessere Unterstützung in IDEs.
+
+//Ein Enum in Java definiert eine Gruppe von Konstanten. Früher wurden Enums häufig als einfache Konstanten verwendet, z.B.:
+
 //enum Color {
 //    RED, GREEN, BLUE;
+//}
+//
+//public class App {
+//    public static void main(String[] args) {
+//        Color color = Color.RED;
+//        System.out.println("Selected color: " + color); // Ausgabe: Selected color: RED
+//    }
 //}
 
 //Diese Definition erzeugt drei Konstanten RED, GREEN und BLUE. Die Darstellung von Color.RED ist intern einfach eine Instanz der Enum-Klasse Color.
@@ -5945,7 +5965,7 @@
 
 //// 3. Enum als Klasse mit Methoden
 ////Enums können Methoden enthalten, genauso wie normale Klassen. Dies ermöglicht eine strukturiertere und komplexere Logik innerhalb der Enums.
-
+//
 //public class App {
 //    public static void main(String[] args) {
 //        double x = 4;
@@ -5985,9 +6005,9 @@
 //    public abstract double apply(double x, double y);
 //
 //}
-//// Hier definieren die Enum-Konstanten (ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION) jeweils eine eigene Implementierung der abstrakten Methode apply.
-////Jede Konstante verhält sich wie eine anonyme Klasse mit einer spezifischen Implementierung
-//
+////// Hier definieren die Enum-Konstanten (ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION) jeweils eine eigene Implementierung der abstrakten Methode apply.
+//////Jede Konstante verhält sich wie eine anonyme Klasse mit einer spezifischen Implementierung
+////
 
 
 
@@ -5998,7 +6018,7 @@
 //
 ////4. Verwendung von Enum mit Schnittstellen
 ////Enums können auch Schnittstellen (Interfaces) implementieren, um einheitliches Verhalten für unterschiedliche Enum-Konstanten zu garantieren.
-//
+////
 //public class App {
 //    public static void main(String[] args) {
 //        for (Planet p : Planet.values()) {
@@ -6074,10 +6094,10 @@
 
 
 
-////
-//6. Serialisierung von Enums
-//Enums sind serialisierbar, da die Basisklasse Enum das Interface Serializable implementiert. Dabei wird sichergestellt, dass bei der Deserialisierung keine neuen Instanzen entstehen, sondern die Original-Instanzen wiederverwendet werden.
-
+//////
+////6. Serialisierung von Enums
+////Enums sind serialisierbar, da die Basisklasse Enum das Interface Serializable implementiert. Dabei wird sichergestellt, dass bei der Deserialisierung keine neuen Instanzen entstehen, sondern die Original-Instanzen wiederverwendet werden.
+//
 //
 //import java.io.*;
 //
@@ -6105,7 +6125,56 @@
 //        }
 //    }
 //}
-// Beim Serialisieren und Deserialisieren bleibt die Enum-Instanz dieselbe (true beim Referenzvergleich), was zeigt, dass keine neuen Objekte erzeugt werden.
+//// Beim Serialisieren und Deserialisieren bleibt die Enum-Instanz dieselbe (true beim Referenzvergleich), was zeigt, dass keine neuen Objekte erzeugt werden.
+//
+//
+
+
+
+
+//
+////7. Enum mit zusätzlichen Methoden und abstrakten Methoden
+////
+////Enums können auch abstrakte Methoden haben, die für jeden Enum-Wert separat implementiert werden müssen.
+////
+//
+// enum Shape {
+//    CIRCLE {
+//        public double area(double dimension) {
+//            return Math.PI * dimension * dimension;
+//        }
+//    },
+//    SQUARE {
+//        public double area(double dimension) {
+//            return dimension * dimension;
+//        }
+//    };
+//
+//    // Abstrakte Methode, die jeder Enum-Wert implementieren muss
+//    public abstract double area(double dimension);
+//}
+////Verwendung:
+//
+//public class App {
+//    public static void main(String[] args) {
+//        double radius = 5;
+//        double side = 4;
+//
+//        System.out.println("Area of Circle: " + Shape.CIRCLE.area(radius)); // Ausgabe: 78.54
+//        System.out.println("Area of Square: " + Shape.SQUARE.area(side));   // Ausgabe: 16.0
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10504,58 +10573,226 @@
 
 
 
-// // 5. Deserialisierung mit einem benutzerdefinierten ClassLoader
+ // 5. Deserialisierung mit einem benutzerdefinierten ClassLoader
 
-// //1. Grundlegendes zur Deserialisierung:
-// //        Serialisierung bedeutet, ein Objekt in eine Folge von Bytes zu konvertieren, um es z.B. in einer Datei zu speichern oder über das Netzwerk zu übertragen.
-// //Deserialisierung ist der umgekehrte Prozess: Ein gespeichertes Byte-Array wird wieder in ein lebendiges Objekt umgewandelt.
-// //Bei der Deserialisierung muss die JVM die Klasseninformationen des gespeicherten Objekts laden. Standardmäßig verwendet sie dabei den System ClassLoader.
-// //In manchen Fällen möchtest du jedoch einen benutzerdefinierten ClassLoader verwenden, um sicherzustellen, dass die Klassen aus einem bestimmten Verzeichnis oder einer JAR-Datei geladen werden.
-
-
-
-// //Hier habe ich eine Anwendungs klasse erstellt "ClassLoaderDeserialised"  und eine "SerializeDemo" um einen .ser datei zu erstellen, und mit der kompilierung auch einen ClassLoaderDeserialised.class.
-
-// import java.io.*;
-
-// public class App {
-//     public static void main(String[] args) {
-//         try {
-//             // 1. Pfad zur serialisierten Datei
-//             String pathToFile = "src/ClassLoaderDeserialized.ser";
-// // Dies gibt den Pfad zur serialisierten Datei an, die das Objekt enthält, das wiederhergestellt werden soll. Die Datei path_to_serialized_object.ser sollte ein vorher serialisiertes Java-Objekt enthalten.
-
-//             // 2. Erstelle einen benutzerdefinierten ClassLoader
-//             App loader = new App("src/ClassLoaderDeserialized.class"); // Der Konstruktor des CustomClassLoader nimmt den Pfad zu den .class-Dateien an, die möglicherweise zur Deserialisierung benötigt werden.
-
-
-//             // 3. Lade das Objekt mit dem benutzerdefinierten ClassLoader
-//             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pathToFile)) {// Hier wird der Konstruktor new ObjectInputStream(...) erweitert, um eine anonyme Klasse zu erstellen, die die Methode resolveClass überschreibt.
-
-//                 @Override
-//                 protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {// Diese Methode wird immer dann aufgerufen, wenn der ObjectInputStream eine Klassendefinition benötigt, um ein Objekt zu deserialisieren. Standardmäßig würde resolveClass den System ClassLoader verwenden, um die Klasse zu laden.
-
-
-//                     // 4. Überschreibe die Standard-Implementierung, um Klassen mit dem benutzerdefinierten ClassLoader zu laden
-//                     return loader.loadClass(desc.getName());
-//                 }// Der desc.getName() gibt den Namen der Klasse zurück, die geladen werden soll (z.B. MyClass).
-//             };
-
-//             // 5. Lese das Objekt aus dem Stream
-//             Object obj = ois.readObject();
-//             System.out.println("Deserialized object: " + obj);
-// // Während der Deserialisierung wird die Methode resolveClass aufgerufen, um die Klasseninformationen des gespeicherten Objekts mit dem benutzerdefinierten ClassLoader zu laden.
-// //Das Ergebnis (obj) ist das wiederhergestellte Objekt, das ursprünglich serialisiert wurde.
-//             // 6. Schließe den ObjectInputStream
-//             ois.close();// Schließt den ObjectInputStream und gibt die Systemressourcen frei.
-
-//         } catch (Exception e) {
-//             e.printStackTrace();
-//         }
-//     }
-// }
+ //1. Grundlegendes zur Deserialisierung:
+ //        Serialisierung bedeutet, ein Objekt in eine Folge von Bytes zu konvertieren, um es z.B. in einer Datei zu speichern oder über das Netzwerk zu übertragen.
+ //Deserialisierung ist der umgekehrte Prozess: Ein gespeichertes Byte-Array wird wieder in ein lebendiges Objekt umgewandelt.
+ //Bei der Deserialisierung muss die JVM die Klasseninformationen des gespeicherten Objekts laden. Standardmäßig verwendet sie dabei den System ClassLoader.
+ //In manchen Fällen möchtest du jedoch einen benutzerdefinierten ClassLoader verwenden, um sicherzustellen, dass die Klassen aus einem bestimmten Verzeichnis oder einer JAR-Datei geladen werden.
 
 
 
+ //Hier habe ich eine Anwendungs klasse erstellt "TestClass.java"  und eine "DeserializationExample.java" und "SerializationExample.java" und "DeserializationExample.java"
+// um einen .ser datei zu erstellen, und mit der kompilierung auch einen ClassLoaderDeserialised.class.
+//
 
 
+
+//Verzeichnisstruktur
+//
+//
+//MyProject/
+//        ├── src/
+//        │   ├── CustomClassLoaderExample.java
+//│   ├── SerializationExample.java
+//│   ├── DeserializationExample.java
+//│   └── myclasses/
+//        │       └── TestClass.java
+//└── serialized_object.ser
+
+
+//Schritt 1: Erstelle das Hauptverzeichnis
+//Gehe in dein Projektverzeichnis (z.B., MyFirstJava) und erstelle ein neues Verzeichnis MyProject:
+//
+
+//mkdir MyProject
+//cd MyProject
+//mkdir src
+//mkdir src/myclasses
+
+//Schritt 2: Lege die Java-Dateien an
+//Erstelle die vier Java-Dateien entsprechend ihrer Verzeichnisse:
+//
+//TestClass.java im src/myclasses Verzeichnis:
+
+//und fügen wir das code dafür hinzu :
+
+//package myclasses;
+//
+//import java.io.Serializable;
+//
+//public class TestClass implements Serializable {
+//    private static final long serialVersionUID = 1L;
+//    private String message;
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public void sayHello() {
+//        System.out.println(message);
+//    }
+//}
+
+//
+//
+////CustomClassLoaderExample.java im src Verzeichnis:
+//
+//
+////und dann fügen wir dieses code hinzu:
+//import java.io.FileInputStream;
+//import java.io.ObjectInputStream;
+//import java.net.URL;
+//import java.net.URLClassLoader;
+//import java.lang.reflect.Method;
+//
+//public class CustomClassLoaderExample {
+//
+//    public static void main(String[] args) {
+//        try {
+//            // Pfad zur Klasse TestClass, die im Verzeichnis myclasses liegt.
+//            URL classUrl = new URL("file://" + System.getProperty("user.dir") + "/src/myclasses/");
+//            URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{classUrl});
+//
+//            // Lade die Klasse TestClass aus dem Verzeichnis myclasses.
+//            Class<?> loadedClass = urlClassLoader.loadClass("myclasses.TestClass");
+//
+//            // Anstatt eine neue Instanz zu erstellen, deserialisieren wir das Objekt aus der Datei
+//            FileInputStream fileIn = new FileInputStream("serialized_object.ser");
+//            ObjectInputStream in = new ObjectInputStream(fileIn);
+//            Object instance = in.readObject();
+//            in.close();
+//            fileIn.close();
+//
+//            // Finde die Methode und rufe sie auf.
+//            Method method = loadedClass.getMethod("sayHello");
+//            method.invoke(instance);
+//
+//            // ClassLoader schließen (nur notwendig ab Java 7).
+//            urlClassLoader.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
+
+
+//
+////SerializationExample.java im src Verzeichnis, und fügen wir dieses code hinzu:
+//
+//
+//import myclasses.TestClass;
+//
+//import java.io.FileOutputStream;
+//import java.io.ObjectOutputStream;
+//
+//public class SerializationExample {
+//    public static void main(String[] args) {
+//        try {
+//            // TestClass muss serialisierbar sein (implementiert Serializable).
+//            TestClass obj = new TestClass();
+//            obj.setMessage("Hello, I am a serialized object!");
+//
+//            // Speichere das Objekt in einer Datei
+//            FileOutputStream fileOut = new FileOutputStream("serialized_object.ser");
+//            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//            out.writeObject(obj);
+//            out.close();
+//            fileOut.close();
+//            System.out.println("Objekt wurde serialisiert und in 'serialized_object.ser' gespeichert.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+////DeserializationExample.java im src Verzeichnis, und fügen wir dieses code hinzu:
+//
+//
+//
+//import myclasses.TestClass;
+//
+//import java.io.FileInputStream;
+//import java.io.ObjectInputStream;
+//
+//public class DeserializationExample {
+//    public static void main(String[] args) {
+//        try {
+//            // Deserialisiere das Objekt aus der Datei
+//            FileInputStream fileIn = new FileInputStream("serialized_object.ser");
+//            ObjectInputStream in = new ObjectInputStream(fileIn);
+//
+//            // Lese das Objekt und caste es in die TestClass
+//            TestClass obj = (TestClass) in.readObject();
+//            in.close();
+//            fileIn.close();
+//
+//            // Rufe eine Methode des deserialisierten Objekts auf
+//            obj.sayHello();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
+
+
+
+//Schritt 3: Kompiliere die Java-Dateien
+//Gehe in das Hauptverzeichnis MyProject und führe die folgenden Befehle aus, um die Klassen zu kompilieren:
+//
+//bash
+//Copy code
+//javac -d src src/myclasses/TestClass.java
+
+//javac -cp src -d src src/SerializationExample.java
+
+//javac -cp src -d src src/DeserializationExample.java
+
+//javac -cp src -d src src/CustomClassLoaderExample.java
+
+//Dadurch werden alle .class-Dateien im src-Verzeichnis erstellt.
+
+//Schritt 4: Führe die Serialisierung aus
+//Führe das SerializationExample-Programm aus, um die Datei serialized_object.ser zu erstellen:
+
+//Die Ausgabe sollte wie folgt aussehen:
+//
+
+//Objekt wurde serialisiert und in 'serialized_object.ser' gespeichert.
+// Dadurch wird die Datei serialized_object.ser im src-Verzeichnis erstellt.
+
+
+
+// Schritt 5: Führe die Deserialisierung aus
+//Führe nun DeserializationExample aus, um das Objekt zu deserialisieren und die sayHello()-Methode aufzurufen:
+//
+// Die Ausgabe sollte sein:
+//
+
+//Hello, I am a serialized object!
+
+
+
+// Schritt 6: Führe CustomClassLoaderExample aus
+//Führe den CustomClassLoaderExample aus, um die Klasse TestClass dynamisch zu laden und die sayHello()-Methode aufzurufen:
+//
+
+
+
+
+
+//java -cp . CustomClassLoaderExample
+//Die Ausgabe sollte sein:
+//
+
+//Hello, I am a serialized object!
