@@ -7755,37 +7755,37 @@
 
 
 
+//
+//Aufgabenstellung:
+//
+//Implementiere eine Klasse Department, die aus den folgenden Attributen besteht:
+//departmentName (String)
+//manager (Employee-Objekt)
+//employees (Liste von Employee-Objekten)
+//Die Employee-Klasse hat die folgenden Eigenschaften:
+//name (String)
+//employeeId (int)
+//salary (double)
+//password (transient String)
+//address (Address-Objekt)
+//Die Address-Klasse enthält:
+//street (String)
+//city (String)
+//country (String)
+//Die Klasse Department sollte eine benutzerdefinierte Serialisierung (writeObject und readObject) implementieren, um sicherzustellen, dass:
+//Die Liste der Mitarbeiter in der richtigen Reihenfolge bleibt.
+//Passwörter der Mitarbeiter nicht gespeichert werden.
+//Implementiere writeReplace und readResolve, um nach der Deserialisierung den Status der Objekte zu überprüfen und ggf. Anpassungen vorzunehmen.
+//Sonderanforderung:
+//Implementiere die Klasse Department zusätzlich mit dem Interface Externalizable und schreibe eine eigene writeExternal- und readExternal-Methode, um zu zeigen, wie man diese statt der Standard-Serialisierung nutzt.
+//Schreibe ein Hauptprogramm, das:
+//Ein Department-Objekt erstellt.
+//Das Department-Objekt serialisiert.
+//Das Department-Objekt wieder deserialisiert.
+//        Überprüft, ob die Liste der Employee-Objekte korrekt wiederhergestellt wurde und keine Passwörter enthält.
+//
+//
 
-////Aufgabenstellung:
-////
-////Implementiere eine Klasse Department, die aus den folgenden Attributen besteht:
-////departmentName (String)
-////manager (Employee-Objekt)
-////employees (Liste von Employee-Objekten)
-////Die Employee-Klasse hat die folgenden Eigenschaften:
-////name (String)
-////employeeId (int)
-////salary (double)
-////password (transient String)
-////address (Address-Objekt)
-////Die Address-Klasse enthält:
-////street (String)
-////city (String)
-////country (String)
-////Die Klasse Department sollte eine benutzerdefinierte Serialisierung (writeObject und readObject) implementieren, um sicherzustellen, dass:
-////Die Liste der Mitarbeiter in der richtigen Reihenfolge bleibt.
-////Passwörter der Mitarbeiter nicht gespeichert werden.
-////Implementiere writeReplace und readResolve, um nach der Deserialisierung den Status der Objekte zu überprüfen und ggf. Anpassungen vorzunehmen.
-////Sonderanforderung:
-////Implementiere die Klasse Department zusätzlich mit dem Interface Externalizable und schreibe eine eigene writeExternal- und readExternal-Methode, um zu zeigen, wie man diese statt der Standard-Serialisierung nutzt.
-////Schreibe ein Hauptprogramm, das:
-////Ein Department-Objekt erstellt.
-////Das Department-Objekt serialisiert.
-////Das Department-Objekt wieder deserialisiert.
-////        Überprüft, ob die Liste der Employee-Objekte korrekt wiederhergestellt wurde und keine Passwörter enthält.
-////
-//
-//
 //import java.io.*;
 //import java.util.ArrayList;
 //import java.util.List;
@@ -8257,74 +8257,74 @@
 
 
 
-
+//
 // // Threads:
 // //Ein Thread ist ein Ausführungsstrang innerhalb eines Programms, vergleichbar mit einer virtuellen CPU.
-
+//
 // // Die Java Virtual Machine (JVM) ermöglicht es, mehrere Threads gleichzeitig in einer Anwendung auszuführen. Dies bedeutet, dass verschiedene Teile des Codes parallel zur Hauptausführung ablaufen können.
-
+//
 // // Jeder Thread hat eine Priorität: Die JVM entscheidet, welche Threads wann ausgeführt werden, basierend auf diesen Prioritäten.
 // // Threads mit höherer Priorität werden bevorzugt gegenüber Threads mit niedrigerer Priorität ausgeführt.
-
+//
 // // Die JVM führt Threads so lange aus, bis eines der folgenden Ereignisse eintritt:
-
+//
 // // Die exit-Methode der Klasse Runtime wird aufgerufen (beendet die Anwendung).
 // // Alle Benutzer-Threads sind beendet.
-
+//
 // // main(String[] args) das ist unsere hauptthread das unsere main methode abruft wenn die JVM startet.
-
+//
 // //
-
+//
 // public class App {
 //    public static void main(String[] args) throws InterruptedException {
-
+//
 //        Thread.activeCount();// Das gibt aus wie viele threads sind schon aktiv.
 //        System.out.println(Thread.activeCount());
-
+//
 //        Thread.currentThread().getName();// das gibt aus die name der Main thread.
 //        System.out.println(Thread.currentThread().getName());
-
+//
 //        Thread.currentThread().setName("MAINNNN");// das ändert die name unserer Hauptthread.
 //        System.out.println(Thread.currentThread().getName());
 //        Thread.currentThread().getPriority();// das gibt uns die Priorität unserer Main thread.
 //        System.out.println(Thread.currentThread().getPriority());// das ist eine Evaluierung in eine Skala von 1 bis 10, je größer der Zahl, umso größer ist die priorität dieser Thread.
-
+//
 //        Thread.currentThread().setPriority(10);// wir können damit die Priorität unserer Thread ändern.
 //        System.out.println(Thread.currentThread().getPriority());
-
+//
 //        Thread.currentThread().isAlive();// das prüft ob unserer Thread noch am Leben ist .
 //        System.out.println(Thread.currentThread().isAlive());
-
+//
 //     //    wir können unsere Thread.sleep verwenden um für eine bestimmte zeit zu schlafen und danach einen Befehl ausführen.
 //        for(int i = 3; i>0; i--){
 //            System.out.println(i);
 //            Thread.sleep(1000);// lass uns hier einfach throws deklaration hinzufügen damit wir diesen Fehler wegnehmen.
 //        }
 //        System.out.println("You are done!");
-
-
-
+//
+//
+//
 //     //    (2)
 //        MyThread thread2 = new MyThread();
 //        System.out.println(thread2.isAlive());// das gibt uns false jzt, weil wenn wir einen neuen Thread erstellen, müssen wir diesen Thread zuerst starten!
 //        thread2.start();
 //        System.out.println(thread2.isAlive());
-
+//
 //        System.out.println(thread2.getName());
-
+//
 //        // wir können die name dieses Threads ändern:
 //        thread2.setName("2nd Thread");
 //        System.out.println(thread2.getName());
-
+//
 //     //    System.out.println(thread2.getPriority);
 //     //    der neuer Thread vererbt die priorität unseres Hauptthreads.wir können das aber auch ändern:
 //     //    System.out.println(thread2.setPriority(1));
-
+//
 //    }
 //    }
-
-
-//(2)
+//
+//
+////(2)
 //    // um ein neuen thread zu erstellen, machen wir wie folgendes:
 //    class MyThread extends Thread{
 //    @Override
@@ -8333,25 +8333,19 @@
 //    }
 //    }// und dann in unserer hauptthread fügen wir folgendes hinzu:
 // //MyThread thread2 = new MyThread();
-
-
-
-
-
-// Daemon Threads:
-// es gibt zwei Arten von Threads, user threads und Daemon Threads, welche im hintergrund durchgeführt wurde, um bestimmte Aufgaben auszuführen wie garbage collection und JVM terminiert sich selbst wenn alle user threads also non-daemon threads fertig sind.
-
-// wir können überprüfen ob unsere thread ein daemon thread oder nicht in dem wir folgendes machen :
-//        System.out.println(thread2.isDaemon());
-// wir können es aber auf Daemon Thread ändern:
-//        thread2.setDaemon(true);
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//// Daemon Threads:
+//// es gibt zwei Arten von Threads, user threads und Daemon Threads, welche im hintergrund durchgeführt wurde, um bestimmte Aufgaben auszuführen wie garbage collection und JVM terminiert sich selbst wenn alle user threads also non-daemon threads fertig sind.
+//
+//// wir können überprüfen ob unsere thread ein daemon thread oder nicht in dem wir folgendes machen :
+////        System.out.println(thread2.isDaemon());
+//// wir können es aber auf Daemon Thread ändern:
+////        thread2.setDaemon(true);
+//
 
 
 
@@ -8359,6 +8353,12 @@
 
 
 
+
+
+
+
+
+//
 //// Multithreading:
 //// Prozess der gleichzeitigen Ausführung mehrerer Threads, diese prozess hilft bei der maximalen Auslastung der CPU, Threads sind unabhängig, sie beeinflussen die Ausführung anderer Threads nicht. eine Ausnahme in einem Thread unterbricht andere Threads nicht, nützlich für die Bedienung mehrerer Clients, Multiplayer-Spiele oder andere voneinander unabhängige Aufgaben.
 //
@@ -8411,7 +8411,7 @@
 //        System.out.println("Thread #2 is finished!");
 //    }
 //}
-
+//
 
 
 
@@ -8609,7 +8609,7 @@
 
 
 
-
+//
 //
 //////1. Synchronized
 ////
@@ -10796,3 +10796,13 @@
 //
 
 //Hello, I am a serialized object!
+
+
+
+
+
+
+
+
+
+
